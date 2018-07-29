@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "0e3263f5-51ab-4900-88f3-874d0101fce8",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "Blue-Wallpapers-15": {
+      "ver": "1.0.3",
+      "uuid": "4afe6995-d0b0-4d4b-93b6-666b10da99fc",
+      "rawTextureUuid": "0e3263f5-51ab-4900-88f3-874d0101fce8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 3931,
+      "height": 2621,
+      "rawWidth": 3931,
+      "rawHeight": 2621,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

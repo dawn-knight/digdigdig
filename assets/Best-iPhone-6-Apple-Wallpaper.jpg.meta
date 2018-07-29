@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "edaf872c-0a20-4ceb-94d9-69e98bfb2159",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "Best-iPhone-6-Apple-Wallpaper": {
+      "ver": "1.0.3",
+      "uuid": "76dcdb1a-00fb-4ef2-8f0f-f99e6622ce72",
+      "rawTextureUuid": "edaf872c-0a20-4ceb-94d9-69e98bfb2159",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 750,
+      "height": 1334,
+      "rawWidth": 750,
+      "rawHeight": 1334,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
