@@ -163,28 +163,42 @@ cc.Class({
 	getNextPosIdx(pos_idx_arr) {
 		if (Array.isArray(pos_idx_arr)) {
 			var i = 0;
-			var inspected_pos_idx = new Array(pos_idx_arr.length);
+			var inspected_pos_idx_arr = new Array(pos_idx_arr.length);
 			while (i < pos_idx_arr.length) {
 				var random_start_idx = Math.floor(Math.random() * pos_idx_arr.length);
-				if (!inspected_pos_idx.includes(random_start_idx)) {
+				if (!inspected_pos_idx_arr.includes(random_start_idx)) {
 					var j = 0;
+					var inspected_direction_arr = new Array(4);
 					while (j < 4) {
-						var next_pos_idx = moveRandom(random_start_idx, pos_idx_arr);
-						if (next_pos_idx.x != -1 && next_pos_idx.y != -1) {
-							return next_pos_idx;
+						var random_direction = Math.floor(Math.random() * 4);
+						if (!inspected_direction_arr.includes(random_direction)) {
+							var next_pos_idx = moveRandom(random_start_idx, pos_idx_arr, random_direction);
+							if (next_pos_idx.x != -1 && next_pos_idx.y != -1) {
+								return next_pos_idx;
+							}
+							inspected_direction_arr.push(random_direction);
+							j++;
 						}
-						j++;
 					}
-					inspected_pos_idx.push(random_start_idx);
+					inspected_pos_idx_arr.push(random_start_idx);
 					i++;
 				}
 			}
+			return {x:-1, y:-1};
 		} else {
 			return {x:-1, y:-1};
 		}
 	},
 	
-	moveRandom(random_start_idx, pos_idx_arr) {
-		
+	moveRandom(random_start_idx, pos_idx_arr, random_direction) {
+		if (random_direction == 0) {
+			// move right
+		} else if (random_direction == 1) {
+			// move down
+		} else if (random_direction == 2) {
+			// move left
+		} else if (random_direction == 3) {
+			// move up
+		}
 	}
 });
