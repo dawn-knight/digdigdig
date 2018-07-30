@@ -265,6 +265,22 @@
     },
     "spriteFrame2": {
       "__uuid__": "ff4216ca-88da-43c8-ba80-3695f55f99ff"
-    }
+    },
+    "red": {
+      "__uuid__": "14d865b3-671a-4926-9df9-6ad9b94a322f"
+    },
+    "yellow": {
+      "__uuid__": "8a40b5d9-3ab9-4998-a94d-963c51d3fb29"
+    },
+    "orange": {
+      "__uuid__": "b6c941b6-9be9-49bf-8157-3bd4dd47568c"
+    },
+    "green": {
+      "__uuid__": "a4828a81-b4d8-4167-9d1d-2b1deefa889b"
+    },
+    "purple": {
+      "__uuid__": "e5279ca2-b913-433f-9546-cf552eba7aac"
+    },
+    "occupationMapoccupationMap": null
   }
 ]

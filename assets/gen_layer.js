@@ -34,6 +34,9 @@ cc.Class({
 			default: null,
 			type: cc.SpriteFrame,
 			shape: 'o'
+		},
+		occupationMapoccupationMap: {
+			default: null
 		}
     },
 
@@ -102,7 +105,7 @@ cc.Class({
 		}		
 	},
 	
-	genLayerWithFourBlocksShape(obj) {
+	genLayerWithFourBlocksShape(obj) {		
 		var width = obj.node.width;
 		var height = obj.node.height;
 		var max_col_num = parseInt((width / 50));
@@ -110,47 +113,83 @@ cc.Class({
 		cc.log('max_col_num: ' + max_col_num);
 		cc.log('max_row_num: ' + max_row_num);
 		
-		var occupationMap = new Object();
-		occupationMap.totalInspectedTimes = 0;
-		occupationMap.map = null;
-		cc.log(occupationMap);
+		this.occupationMap = new Object();
+		this.occupationMap.totalInspectedTimes = 0;
+		this.occupationMap.map = null;
+		cc.log(this.occupationMap);
 		
-		occupationMap.map = new Array(max_row_num);
-		for (var i = 0; i < occupationMap.map.length; i++) {
+		this.occupationMap.map = new Array(max_row_num);
+		for (var i = 0; i < this.occupationMap.map.length; i++) {
 			var detail = new Array(max_col_num);
 			for(var j = 0; j < detail.length; j++) {
 				detail[j] = {occupied:false, inspected:0};
 			}
-			occupationMap.map[i] = detail;
+			this.occupationMap.map[i] = detail;
 		}
 		var inspected_times_limit = max_col_num * max_row_num;
 		
-		var first_pos_idx = {x:0, y:0}
-		first_pos_idx.x = Math.floor(Math.random() * max_col_num);
-		first_pos_idx.y = Math.floor(Math.random() * max_row_num);
-		cc.log('x: ' + first_pos_idx.x);
-		cc.log('y: ' + first_pos_idx.y);
-		cc.log('[' + first_pos_idx.y + '][' + first_pos_idx.x + '] -> ' + occupationMap.map[first_pos_idx.y][first_pos_idx.x].occupied + ', ' + occupationMap.map[first_pos_idx.y][first_pos_idx.x].inspected);
+		var first_pos_idx_vec = {x:0, y:0}
+		first_pos_idx_vec.x = Math.floor(Math.random() * max_col_num);
+		first_pos_idx_vec.y = Math.floor(Math.random() * max_row_num);
+		cc.log(first_pos_idx_vec);
+		cc.log('[' + first_pos_idx_vec.y + '][' + first_pos_idx_vec.x + '] -> ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied + ', ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected);
 		// 不管最终是否使用该坐标点，标记该坐标点为已检视，总检视次数加1
-		if (occupationMap.map[first_pos_idx.y][first_pos_idx.x].inspected == 0) {
-			occupationMap.map[first_pos_idx.y][first_pos_idx.x].inspected = 1;
-			occupationMap.totalInspectedTimes++;
-			cc.log('totalInspectedTimes: ' + occupationMap.totalInspectedTimes);
+		if (this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected == 0) {
+			this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected = 1;
+			this.occupationMap.totalInspectedTimes++;
+			cc.log('totalInspectedTimes: ' + this.occupationMap.totalInspectedTimes);
 		}		
-		var occupied = occupationMap.map[first_pos_idx.y][first_pos_idx.x].occupied;
-		while (occupied && occupationMap.totalInspectedTimes < inspected_times_limit) {			
-			first_pos_idx.x = Math.floor(Math.random() * max_col_num);
-			first_pos_idx.y = Math.floor(Math.random() * max_row_num);
-			cc.log('x: ' + first_pos_idx.x);
-			cc.log('y: ' + first_pos_idx.y);
-			cc.log('[' + first_pos_idx.y + '][' + first_pos_idx.x + '] -> ' + occupationMap.map[first_pos_idx.y][first_pos_idx.x].occupied + ', ' + occupationMap.map[first_pos_idx.y][first_pos_idx.x].inspected);
+		var occupied = this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied;
+		while (occupied && this.occupationMap.totalInspectedTimes < inspected_times_limit) {			
+			first_pos_idx_vec.x = Math.floor(Math.random() * max_col_num);
+			first_pos_idx_vec.y = Math.floor(Math.random() * max_row_num);
+			cc.log(first_pos_idx_vec);
+			cc.log('[' + first_pos_idx_vec.y + '][' + first_pos_idx_vec.x + '] -> ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied + ', ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected);
 			// 不管最终是否使用该坐标点，标记该坐标点为已检视，总检视次数加1
-			if (occupationMap.map[first_pos_idx.y][first_pos_idx.x].inspected == 0) {
-				occupationMap.map[first_pos_idx.y][first_pos_idx.x].inspected = 1;
-				occupationMap.totalInspectedTimes++;
-				cc.log('totalInspectedTimes: ' + occupationMap.totalInspectedTimes);
+			if (this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected == 0) {
+				this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected = 1;
+				this.occupationMap.totalInspectedTimes++;
+				cc.log('totalInspectedTimes: ' + this.occupationMap.totalInspectedTimes);
 			}			
-			occupied = occupationMap.map[first_pos_idx.y][first_pos_idx.x].occupied;
+			occupied = this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied;
+		}
+		
+		var pos_idx_vec_arr = new Array();
+		cc.log('declare');
+		cc.log(pos_idx_vec_arr);
+		cc.log(pos_idx_vec_arr.length);
+		pos_idx_vec_arr.push(first_pos_idx_vec);
+		cc.log('first push');
+		cc.log(pos_idx_vec_arr);
+		cc.log(pos_idx_vec_arr.length);
+		var second_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
+		cc.log(second_pos_idx_vec);
+		pos_idx_vec_arr.push(second_pos_idx_vec);
+		cc.log('second push');
+		cc.log(pos_idx_vec_arr);
+		cc.log(pos_idx_vec_arr.length);		
+		var third_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
+		cc.log(third_pos_idx_vec);
+		pos_idx_vec_arr.push(third_pos_idx_vec);
+		cc.log('third push');
+		cc.log(pos_idx_vec_arr);
+		cc.log(pos_idx_vec_arr.length);
+		var fourth_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
+		cc.log(fourth_pos_idx_vec);
+		pos_idx_vec_arr.push(fourth_pos_idx_vec);
+		cc.log('fourth push');
+		cc.log(pos_idx_vec_arr)
+		cc.log(pos_idx_vec_arr.length);
+		
+		for (var i = 0; i < pos_idx_vec_arr.length; i++) {
+			var node = new cc.Node(i);
+			var texture = node.addComponent(cc.Sprite);
+			texture.spriteFrame = obj.red;
+			node.setAnchorPoint(0, 0);
+			node.x = pos_idx_vec_arr[i].x * 50;
+			node.y = pos_idx_vec_arr[i].y * 50;
+			node.parent = obj.node;
+			cc.log(node);
 		}
 	},
 	
@@ -160,27 +199,30 @@ cc.Class({
 		2 与已有坐标不同
 		3 未使用
 	*/
-	getNextPosIdx(pos_idx_arr) {
-		if (Array.isArray(pos_idx_arr)) {
+	getNextPosIdxVec(pos_idx_vec_arr) {
+		cc.log('get next pos idx vec from ...');
+		cc.log(pos_idx_vec_arr);
+		if (Array.isArray(pos_idx_vec_arr)) {
 			var i = 0;
-			var inspected_pos_idx_arr = new Array(pos_idx_arr.length);
-			while (i < pos_idx_arr.length) {
-				var random_start_idx = Math.floor(Math.random() * pos_idx_arr.length);
-				if (!inspected_pos_idx_arr.includes(random_start_idx)) {
+			var inspected_vec_arr_idx = new Array(pos_idx_vec_arr.length);
+			while (i < pos_idx_vec_arr.length) {
+				var rnd_vec_arr_idx = Math.floor(Math.random() * pos_idx_vec_arr.length);
+				cc.log('index: ' + rnd_vec_arr_idx);
+				if (!inspected_vec_arr_idx.includes(rnd_vec_arr_idx)) {
 					var j = 0;
 					var inspected_direction_arr = new Array(4);
 					while (j < 4) {
-						var random_direction = Math.floor(Math.random() * 4);
-						if (!inspected_direction_arr.includes(random_direction)) {
-							var next_pos_idx = moveRandom(random_start_idx, pos_idx_arr, random_direction);
-							if (next_pos_idx.x != -1 && next_pos_idx.y != -1) {
-								return next_pos_idx;
+						var rnd_dir = Math.floor(Math.random() * 4);
+						if (!inspected_direction_arr.includes(rnd_dir)) {
+							var nxt_pos_idx_vec = this.moveRandom(rnd_vec_arr_idx, pos_idx_vec_arr, rnd_dir);
+							if (nxt_pos_idx_vec.x != -1 && nxt_pos_idx_vec.y != -1) {
+								return nxt_pos_idx_vec;
 							}
-							inspected_direction_arr.push(random_direction);
+							inspected_direction_arr.push(rnd_dir);
 							j++;
 						}
 					}
-					inspected_pos_idx_arr.push(random_start_idx);
+					inspected_vec_arr_idx.push(rnd_vec_arr_idx);
 					i++;
 				}
 			}
@@ -190,15 +232,64 @@ cc.Class({
 		}
 	},
 	
-	moveRandom(random_start_idx, pos_idx_arr, random_direction) {
-		if (random_direction == 0) {
+	moveRandom(rnd_vec_arr_idx, pos_idx_vec_arr, rnd_dir) {
+		cc.log('dir: ' + rnd_dir);
+		var boundary = -1;
+		var value_to_check;
+		if (rnd_dir == 0) {
 			// move right
-		} else if (random_direction == 1) {
+			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].x++;
+			boundary = 15; // 之后用变量替代
+		} else if (rnd_dir == 1) {
 			// move down
-		} else if (random_direction == 2) {
+			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].y--;
+			boundary = 0; // 之后用变量替代
+		} else if (rnd_dir == 2) {
 			// move left
-		} else if (random_direction == 3) {
+			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].x--;
+			boundary = 0; // 之后用变量替代
+		} else if (rnd_dir == 3) {
 			// move up
+			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].y++;
+			boundary = 20; // 之后用变量替代
 		}
-	}
+		
+		if (this.isOverBoundary(value_to_check, boundary)) 
+			return {x:-1, y:-1};
+		
+		if (this.isDuplicated(rnd_vec_arr_idx, pos_idx_vec_arr))
+			return {x:-1, y:-1};
+		
+		if (this.isOccupied(pos_idx_vec_arr[rnd_vec_arr_idx]))
+			return {x:-1, y:-1};
+		
+		cc.log(pos_idx_vec_arr[rnd_vec_arr_idx]);
+		return {x:pos_idx_vec_arr[rnd_vec_arr_idx].x, y:pos_idx_vec_arr[rnd_vec_arr_idx].y}
+	},
+	
+	isOverBoundary(value_to_check, boundary) {
+		if (boundary == 0) {
+			if (value_to_check <= boundary)
+				return true;
+		} else {
+			if (value_to_check >= boundary)
+				return true;
+		}
+		return false;
+	},
+	
+	isDuplicated(rnd_vec_arr_idx, pos_idx_vec_arr) {
+		for (var i = 0; i < pos_idx_vec_arr.length; i++) {
+			if (i != rnd_vec_arr_idx) {
+				if (pos_idx_vec_arr[rnd_vec_arr_idx].x == pos_idx_vec_arr[i].x && pos_idx_vec_arr[rnd_vec_arr_idx].y == pos_idx_vec_arr[i].y) {
+					return true;
+				}
+			}
+		}
+		return false;
+	},
+	
+	isOccupied(pos_idx_vec) {
+		return this.occupationMap.map[pos_idx_vec.y][pos_idx_vec.x].occupied;
+	},
 });
