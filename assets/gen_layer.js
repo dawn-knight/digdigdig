@@ -131,7 +131,7 @@ cc.Class({
 		var first_pos_idx_vec = {x:0, y:0}
 		first_pos_idx_vec.x = Math.floor(Math.random() * max_col_num);
 		first_pos_idx_vec.y = Math.floor(Math.random() * max_row_num);
-		cc.log(first_pos_idx_vec);
+		// cc.log(first_pos_idx_vec);
 		cc.log('[' + first_pos_idx_vec.y + '][' + first_pos_idx_vec.x + '] -> ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied + ', ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected);
 		// 不管最终是否使用该坐标点，标记该坐标点为已检视，总检视次数加1
 		if (this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected == 0) {
@@ -155,31 +155,31 @@ cc.Class({
 		}
 		
 		var pos_idx_vec_arr = new Array();
-		cc.log('declare');
-		cc.log(pos_idx_vec_arr);
-		cc.log(pos_idx_vec_arr.length);
+		// cc.log('declare');
+		// cc.log(pos_idx_vec_arr);
+		// cc.log(pos_idx_vec_arr.length);
 		pos_idx_vec_arr.push(first_pos_idx_vec);
-		cc.log('first push');
-		cc.log(pos_idx_vec_arr);
-		cc.log(pos_idx_vec_arr.length);
+		// cc.log('first push');
+		// cc.log(pos_idx_vec_arr);
+		// cc.log(pos_idx_vec_arr.length);
 		var second_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
-		cc.log(second_pos_idx_vec);
+		// cc.log(second_pos_idx_vec);
 		pos_idx_vec_arr.push(second_pos_idx_vec);
-		cc.log('second push');
-		cc.log(pos_idx_vec_arr);
-		cc.log(pos_idx_vec_arr.length);		
+		// cc.log('second push');
+		// cc.log(pos_idx_vec_arr);
+		// cc.log(pos_idx_vec_arr.length);		
 		var third_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
-		cc.log(third_pos_idx_vec);
+		// cc.log(third_pos_idx_vec);
 		pos_idx_vec_arr.push(third_pos_idx_vec);
-		cc.log('third push');
-		cc.log(pos_idx_vec_arr);
-		cc.log(pos_idx_vec_arr.length);
+		// cc.log('third push');
+		// cc.log(pos_idx_vec_arr);
+		// cc.log(pos_idx_vec_arr.length);
 		var fourth_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
-		cc.log(fourth_pos_idx_vec);
+		// cc.log(fourth_pos_idx_vec);
 		pos_idx_vec_arr.push(fourth_pos_idx_vec);
-		cc.log('fourth push');
-		cc.log(pos_idx_vec_arr)
-		cc.log(pos_idx_vec_arr.length);
+		// cc.log('fourth push');
+		// cc.log(pos_idx_vec_arr)
+		// cc.log(pos_idx_vec_arr.length);
 		
 		for (var i = 0; i < pos_idx_vec_arr.length; i++) {
 			var node = new cc.Node(i);
@@ -233,43 +233,60 @@ cc.Class({
 	},
 	
 	moveRandom(rnd_vec_arr_idx, pos_idx_vec_arr, rnd_dir) {
+		cc.log('move from pos below');
+		cc.log(pos_idx_vec_arr[rnd_vec_arr_idx]);
 		cc.log('dir: ' + rnd_dir);
 		var boundary = -1;
 		var value_to_check;
 		if (rnd_dir == 0) {
 			// move right
-			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].x++;
+			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].x + 1;
 			boundary = 15; // 之后用变量替代
 		} else if (rnd_dir == 1) {
 			// move down
-			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].y--;
+			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].y - 1;
 			boundary = 0; // 之后用变量替代
 		} else if (rnd_dir == 2) {
 			// move left
-			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].x--;
+			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].x - 1;
 			boundary = 0; // 之后用变量替代
 		} else if (rnd_dir == 3) {
 			// move up
-			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].y++;
+			value_to_check = pos_idx_vec_arr[rnd_vec_arr_idx].y + 1;
 			boundary = 20; // 之后用变量替代
 		}
+		
+		cc.log('value_to_check: ' + value_to_check);
 		
 		if (this.isOverBoundary(value_to_check, boundary)) 
 			return {x:-1, y:-1};
 		
-		if (this.isDuplicated(rnd_vec_arr_idx, pos_idx_vec_arr))
-			return {x:-1, y:-1};
+		if (rnd_dir == 0 || rnd_dir == 2) {
+			cc.log('x: ' + value_to_check);
+			cc.log('y: ' + pos_idx_vec_arr[rnd_vec_arr_idx].y);
+			var pos_idx_vec_to_return = {x:value_to_check, y:pos_idx_vec_arr[rnd_vec_arr_idx].y};
+			cc.log(pos_idx_vec_to_return);
+			if (!this.isDuplicated(pos_idx_vec_to_return, pos_idx_vec_arr) && !this.isOccupied(pos_idx_vec_to_return))
+				return pos_idx_vec_to_return;
+			else
+				return {x:-1, y:-1};
+		}
 		
-		if (this.isOccupied(pos_idx_vec_arr[rnd_vec_arr_idx]))
-			return {x:-1, y:-1};
-		
-		cc.log(pos_idx_vec_arr[rnd_vec_arr_idx]);
-		return {x:pos_idx_vec_arr[rnd_vec_arr_idx].x, y:pos_idx_vec_arr[rnd_vec_arr_idx].y}
+		if (rnd_dir == 1 || rnd_dir == 3) {
+			cc.log('x: ' + pos_idx_vec_arr[rnd_vec_arr_idx].x);
+			cc.log('y: ' + value_to_check);
+			var pos_idx_vec_to_return = {x:pos_idx_vec_arr[rnd_vec_arr_idx].x, y:value_to_check};
+			cc.log(pos_idx_vec_to_return);
+			if (!this.isDuplicated(pos_idx_vec_to_return, pos_idx_vec_arr) && !this.isOccupied(pos_idx_vec_to_return))
+				return pos_idx_vec_to_return;
+			else
+				return {x:-1, y:-1};
+		}
 	},
 	
 	isOverBoundary(value_to_check, boundary) {
 		if (boundary == 0) {
-			if (value_to_check <= boundary)
+			if (value_to_check < boundary)
 				return true;
 		} else {
 			if (value_to_check >= boundary)
@@ -278,12 +295,10 @@ cc.Class({
 		return false;
 	},
 	
-	isDuplicated(rnd_vec_arr_idx, pos_idx_vec_arr) {
+	isDuplicated(pos_idx_vec_to_return, pos_idx_vec_arr) {
 		for (var i = 0; i < pos_idx_vec_arr.length; i++) {
-			if (i != rnd_vec_arr_idx) {
-				if (pos_idx_vec_arr[rnd_vec_arr_idx].x == pos_idx_vec_arr[i].x && pos_idx_vec_arr[rnd_vec_arr_idx].y == pos_idx_vec_arr[i].y) {
-					return true;
-				}
+			if (pos_idx_vec_to_return.x == pos_idx_vec_arr[i].x && pos_idx_vec_to_return.y == pos_idx_vec_arr[i].y) {
+				return true;
 			}
 		}
 		return false;
