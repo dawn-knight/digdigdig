@@ -155,41 +155,27 @@ cc.Class({
 		}
 		
 		var pos_idx_vec_arr = new Array();
-		// cc.log('declare');
-		// cc.log(pos_idx_vec_arr);
-		// cc.log(pos_idx_vec_arr.length);
 		pos_idx_vec_arr.push(first_pos_idx_vec);
-		// cc.log('first push');
-		// cc.log(pos_idx_vec_arr);
-		// cc.log(pos_idx_vec_arr.length);
 		var second_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
-		// cc.log(second_pos_idx_vec);
 		pos_idx_vec_arr.push(second_pos_idx_vec);
-		// cc.log('second push');
-		// cc.log(pos_idx_vec_arr);
-		// cc.log(pos_idx_vec_arr.length);		
 		var third_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
-		// cc.log(third_pos_idx_vec);
 		pos_idx_vec_arr.push(third_pos_idx_vec);
-		// cc.log('third push');
-		// cc.log(pos_idx_vec_arr);
-		// cc.log(pos_idx_vec_arr.length);
 		var fourth_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
-		// cc.log(fourth_pos_idx_vec);
 		pos_idx_vec_arr.push(fourth_pos_idx_vec);
-		// cc.log('fourth push');
-		// cc.log(pos_idx_vec_arr)
-		// cc.log(pos_idx_vec_arr.length);
+		
+		cc.log(pos_idx_vec_arr);
+		
+		var color = this.getColor(pos_idx_vec_arr);
 		
 		for (var i = 0; i < pos_idx_vec_arr.length; i++) {
 			var node = new cc.Node(i);
 			var texture = node.addComponent(cc.Sprite);
-			texture.spriteFrame = obj.red;
+			texture.spriteFrame = color;
 			node.setAnchorPoint(0, 0);
 			node.x = pos_idx_vec_arr[i].x * 50;
 			node.y = pos_idx_vec_arr[i].y * 50;
 			node.parent = obj.node;
-			cc.log(node);
+			// cc.log(node);
 		}
 	},
 	
@@ -200,14 +186,12 @@ cc.Class({
 		3 未使用
 	*/
 	getNextPosIdxVec(pos_idx_vec_arr) {
-		cc.log('get next pos idx vec from ...');
-		cc.log(pos_idx_vec_arr);
 		if (Array.isArray(pos_idx_vec_arr)) {
 			var i = 0;
 			var inspected_vec_arr_idx = new Array(pos_idx_vec_arr.length);
 			while (i < pos_idx_vec_arr.length) {
 				var rnd_vec_arr_idx = Math.floor(Math.random() * pos_idx_vec_arr.length);
-				cc.log('index: ' + rnd_vec_arr_idx);
+				// cc.log('index: ' + rnd_vec_arr_idx);
 				if (!inspected_vec_arr_idx.includes(rnd_vec_arr_idx)) {
 					var j = 0;
 					var inspected_direction_arr = new Array(4);
@@ -233,9 +217,9 @@ cc.Class({
 	},
 	
 	moveRandom(rnd_vec_arr_idx, pos_idx_vec_arr, rnd_dir) {
-		cc.log('move from pos below');
-		cc.log(pos_idx_vec_arr[rnd_vec_arr_idx]);
-		cc.log('dir: ' + rnd_dir);
+		// cc.log('move from pos below');
+		// cc.log(pos_idx_vec_arr[rnd_vec_arr_idx]);
+		// cc.log('dir: ' + rnd_dir);
 		var boundary = -1;
 		var value_to_check;
 		if (rnd_dir == 0) {
@@ -256,16 +240,11 @@ cc.Class({
 			boundary = 20; // 之后用变量替代
 		}
 		
-		cc.log('value_to_check: ' + value_to_check);
-		
 		if (this.isOverBoundary(value_to_check, boundary)) 
 			return {x:-1, y:-1};
 		
 		if (rnd_dir == 0 || rnd_dir == 2) {
-			cc.log('x: ' + value_to_check);
-			cc.log('y: ' + pos_idx_vec_arr[rnd_vec_arr_idx].y);
 			var pos_idx_vec_to_return = {x:value_to_check, y:pos_idx_vec_arr[rnd_vec_arr_idx].y};
-			cc.log(pos_idx_vec_to_return);
 			if (!this.isDuplicated(pos_idx_vec_to_return, pos_idx_vec_arr) && !this.isOccupied(pos_idx_vec_to_return))
 				return pos_idx_vec_to_return;
 			else
@@ -273,10 +252,7 @@ cc.Class({
 		}
 		
 		if (rnd_dir == 1 || rnd_dir == 3) {
-			cc.log('x: ' + pos_idx_vec_arr[rnd_vec_arr_idx].x);
-			cc.log('y: ' + value_to_check);
 			var pos_idx_vec_to_return = {x:pos_idx_vec_arr[rnd_vec_arr_idx].x, y:value_to_check};
-			cc.log(pos_idx_vec_to_return);
 			if (!this.isDuplicated(pos_idx_vec_to_return, pos_idx_vec_arr) && !this.isOccupied(pos_idx_vec_to_return))
 				return pos_idx_vec_to_return;
 			else
@@ -306,5 +282,169 @@ cc.Class({
 	
 	isOccupied(pos_idx_vec) {
 		return this.occupationMap.map[pos_idx_vec.y][pos_idx_vec.x].occupied;
+	},
+	
+	getColor(pos_idx_vec_arr) {
+		var x_arr = new Array();
+		var y_arr = new Array();
+		for (var i = 0; i < pos_idx_vec_arr.length; i++) {
+			x_arr.push(pos_idx_vec_arr[i].x);
+			y_arr.push(pos_idx_vec_arr[i].y);
+		}
+		
+		if (this.isI(x_arr, y_arr)) {
+			cc.log('I, red');
+			return this.red;
+		} else {
+			cc.log('not I');
+		}
+		
+		if (this.isZ(x_arr, y_arr)) {
+			cc.log('Z, yellow');
+			return this.yellow;
+		} else {
+			cc.log('not Z');
+		}
+
+		if (this.isL(x_arr, y_arr)) {
+			cc.log('L, orange');
+			return this.orange;
+		} else {
+			cc.log('not L');
+		}
+
+		if (this.isT(x_arr, y_arr)) {
+			cc.log('T, green');
+			return this.green;
+		} else {
+			cc.log('not T');
+		}
+
+		if (this.isO(x_arr, y_arr)) {
+			cc.log('O, purple');
+			return this.purple;
+		} else {
+			cc.log('not O');
+		}		
+	},
+	
+	isI(x_arr, y_arr) {
+		var all_x_same = true;
+		for (var i = 0; i < x_arr.length - 1; i++) {
+			if (x_arr[i] != x_arr[i + 1]) {
+				all_x_same = false;
+				break;
+			}
+		}
+		
+		var all_y_same = true;
+		for (var i = 0; i < y_arr.length - 1; i++) {
+			if (y_arr[i] != y_arr[i + 1]) {
+				all_y_same = false;
+				break;
+			}
+		}
+
+		return (all_x_same || all_y_same);
+	},
+	
+	isZ(x_arr, y_arr) {
+		if ((x_arr[0] == x_arr[1]) && (x_arr[2] == x_arr[3]) && (Math.abs(x_arr[2] - x_arr[1]) == 1) && (Math.abs(x_arr[0] - x_arr[3]) == 2)) {
+			return true;
+		}
+		
+		if ((y_arr[0] == y_arr[1]) && (y_arr[2] == y_arr[3]) && (Math.abs(y_arr[2] - y_arr[1]) == 1) && (Math.abs(y_arr[0] - y_arr[3]) == 2)) {
+			return true;
+		}
+		
+		return false;
+	},
+	
+	isL(x_arr, y_arr) {
+		if ((x_arr[0] == x_arr[1]) && (x_arr[1] == x_arr[2])) {
+			var max_x_idx = 0; // 不是最大的 是最大或者最小的，需要修改
+			for (var i = 0; i < x_arr.length - 1; i++) {
+				if (x_arr[i + 1] > x_arr[i]) {
+					max_x_idx = i + 1;
+				}
+			}
+			
+			if (!((Math.abs(x_arr[max_x_idx] - x_arr[1]) == 1) && (y_arr[max_x_idx] == y_arr[1]))) {
+				return true;
+			}
+		}
+		
+		if ((y_arr[0] == y_arr[1]) && (y_arr[1] == y_arr[2])) {
+			var max_y_idx = 0;
+			for (var i = 0; i < y_arr.length - 1; i++) {
+				if (y_arr[i + 1] > y_arr[i]) {
+					max_y_idx = i + 1;
+				}
+			}			
+			
+			if (!((Math.abs(y_arr[max_y_idx] - y_arr[1]) == 1) && (x_arr[max_y_idx] == x_arr[1]))) {
+				return true;
+			}			
+		}
+		
+		return false;
+	},
+	
+	isT(x_arr, y_arr) {
+		if ((x_arr[0] == x_arr[1]) && (x_arr[1] == x_arr[2])) {
+			var max_x_idx = 0;
+			for (var i = 0; i < x_arr.length - 1; i++) {
+				if (x_arr[i + 1] > x_arr[i]) {
+					max_x_idx = i + 1;
+				}
+			}			
+			
+			if ((Math.abs(x_arr[max_x_idx] - x_arr[1]) == 1) && (y_arr[max_x_idx] == y_arr[1])) {
+				return true;
+			}			
+		}
+		
+		if ((y_arr[0] == y_arr[1]) && (y_arr[1] == y_arr[2])) {
+			var max_y_idx = 0;
+			for (var i = 0; i < y_arr.length - 1; i++) {
+				if (y_arr[i + 1] > y_arr[i]) {
+					max_y_idx = i + 1;
+				}
+			}			
+			
+			if ((Math.abs(y_arr[max_y_idx] - y_arr[1]) == 1) && (x_arr[max_y_idx] == x_arr[1])) {
+				return true;
+			}				
+		}
+		
+		return false;	
+	},
+	
+	isO(x_arr, y_arr) {
+		var min_x = 14; // 之后用变量替代
+		var min_y = 19; // 之后用变量替代
+		var max_x = 0;
+		var max_y = 0;
+		for (var i = 0; i < x_arr.length; i++) {
+			if (x_arr[i] < min_x)
+				min_x = x_arr[i];
+			
+			if (x_arr[i] > max_x)
+				max_x = x_arr[i];
+		}
+		for (var i = 0; i < y_arr.length; i++) {
+			if (y_arr[i] < min_y)
+				min_y = y_arr[i];			
+			
+			if (y_arr[i] > max_y)
+				max_y = y_arr[i];
+		}
+
+		var sqrt = Math.sqrt(x_arr.length); // y_arr the same
+		
+		if ((max_x - min_x == sqrt - 1) && (max_y - min_y == sqrt - 1))
+			return true;
+		
+		return false;
 	},
 });
