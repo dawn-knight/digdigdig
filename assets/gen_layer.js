@@ -349,72 +349,172 @@ cc.Class({
 	},
 	
 	isZ(x_arr, y_arr) {
-		if ((x_arr[0] == x_arr[1]) && (x_arr[2] == x_arr[3]) && (Math.abs(x_arr[2] - x_arr[1]) == 1) && (Math.abs(x_arr[0] - x_arr[3]) == 2)) {
-			return true;
+		var non_repeated_x_arr = new Array();
+		for (var i = 0; i < x_arr.length; i++) {
+			if (!non_repeated_x_arr.includes(x_arr[i])) {
+				non_repeated_x_arr.push(x_arr[i]);
+			}				
+		}
+		if (non_repeated_x_arr.length == 2) {
+			var min_y = 19; // 之后用变量替代
+			var max_y = 0;
+			for (var i = 0; i < y_arr.length; i++) {
+				if (y_arr[i] < min_y) {
+					min_y = y_arr[i];
+				}
+				if (y_arr[i] > max_y) {
+					max_y = y_arr[i];
+				}
+			}
+			if (max_y - min_y == 2)
+				return true;
 		}
 		
-		if ((y_arr[0] == y_arr[1]) && (y_arr[2] == y_arr[3]) && (Math.abs(y_arr[2] - y_arr[1]) == 1) && (Math.abs(y_arr[0] - y_arr[3]) == 2)) {
-			return true;
+		var non_repeated_y_arr = new Array();
+		for (var i = 0; i < y_arr.length; i++) {
+			if (!non_repeated_y_arr.includes(y_arr[i])) {
+				non_repeated_y_arr.push(y_arr[i]);
+			}
 		}
+		if (non_repeated_y_arr.length == 2) {
+			var min_x = 14; // 之后用变量替代
+			var max_x = 0;
+			for (var i = 0; i < x_arr.length; i++) {
+				if (x_arr[i] < min_x) {
+					min_x = x_arr[i];
+				}
+				if (x_arr[i] > max_x) {
+					max_x = x_arr[i];
+				}
+			}
+			if (max_x - min_x == 2)
+				return true;
+		}		
 		
 		return false;
 	},
 	
 	isL(x_arr, y_arr) {
-		if ((x_arr[0] == x_arr[1]) && (x_arr[1] == x_arr[2])) {
-			var max_x_idx = 0; // 不是最大的 是最大或者最小的，需要修改
-			for (var i = 0; i < x_arr.length - 1; i++) {
-				if (x_arr[i + 1] > x_arr[i]) {
-					max_x_idx = i + 1;
-				}
-			}
-			
-			if (!((Math.abs(x_arr[max_x_idx] - x_arr[1]) == 1) && (y_arr[max_x_idx] == y_arr[1]))) {
-				return true;
+		var first_x = x_arr[0];
+		var same_x_qty = 1;
+		var diff_x_idx = -1;
+		for (var i = 1; i < x_arr.length; i++) {
+			if (x_arr[i] == first_x) {
+				same_x_qty++;
+			} else {
+				diff_x_idx = i;
 			}
 		}
-		
-		if ((y_arr[0] == y_arr[1]) && (y_arr[1] == y_arr[2])) {
-			var max_y_idx = 0;
-			for (var i = 0; i < y_arr.length - 1; i++) {
-				if (y_arr[i + 1] > y_arr[i]) {
-					max_y_idx = i + 1;
+		if (same_x_qty == 3 && diff_x_idx != -1) {
+			var greatest = true;
+			for (var i = 0; i < y_arr.length; i++) {
+				if (i != diff_x_idx && y_arr[i] > y_arr[diff_x_idx]) {
+					greatest = false;
 				}
-			}			
+			}
+			if (greatest) {
+				return true;
+			}
 			
-			if (!((Math.abs(y_arr[max_y_idx] - y_arr[1]) == 1) && (x_arr[max_y_idx] == x_arr[1]))) {
+			var smallest = true;
+			for (var i = 0; i < y_arr.length; i++) {
+				if (i != diff_x_idx && y_arr[i] < y_arr[diff_x_idx]) {
+					smallest = false;
+				}
+			}
+			if (smallest) {
 				return true;
 			}			
+		}
+		
+		var first_y = y_arr[0];
+		var same_y_qty = 1;
+		var diff_y_idx = -1;
+		for (var i = 1; i < y_arr.length; i++) {
+			if (y_arr[i] == first_y) {
+				same_y_qty++;
+			} else {
+				diff_y_idx = i;
+			}
+		}
+		if (same_y_qty == 3 && diff_y_idx != -1) {
+			var greatest = true;
+			for (var i = 0; i < x_arr.length; i++) {
+				if (i != diff_y_idx && x_arr[i] > x_arr[diff_y_idx]) {
+					greatest = false;
+				}
+			}
+			if (greatest) {
+				return true;
+			}
+			
+			var smallest = true;
+			for (var i = 0; i < x_arr.length; i++) {
+				if (i != diff_y_idx && x_arr[i] < x_arr[diff_y_idx]) {
+					smallest = false;
+				}
+			}
+			if (smallest) {
+				return true;
+			}
 		}
 		
 		return false;
 	},
 	
 	isT(x_arr, y_arr) {
-		if ((x_arr[0] == x_arr[1]) && (x_arr[1] == x_arr[2])) {
-			var max_x_idx = 0;
-			for (var i = 0; i < x_arr.length - 1; i++) {
-				if (x_arr[i + 1] > x_arr[i]) {
-					max_x_idx = i + 1;
+		var first_x = x_arr[0];
+		var same_x_qty = 1;
+		var diff_x_idx = -1;
+		for (var i = 1; i < x_arr.length; i++) {
+			if (x_arr[i] == first_x) {
+				same_x_qty++;
+			} else {
+				diff_x_idx = i;
+			}
+		}
+		if (same_x_qty == 3 && diff_x_idx != -1) {
+			var greatest = false;
+			for (var i = 0; i < y_arr.length; i++) {
+				if (i != diff_x_idx && y_arr[i] > y_arr[diff_x_idx]) {
+					greatest = false;
 				}
-			}			
-			
-			if ((Math.abs(x_arr[max_x_idx] - x_arr[1]) == 1) && (y_arr[max_x_idx] == y_arr[1])) {
+			}
+			var smallest = true;
+			for (var i = 0; i < y_arr.length; i++) {
+				if (i != diff_x_idx && y_arr[i] < y_arr[diff_x_idx]) {
+					smallest = false;
+				}
+			}
+			if (!greatest && !smallest)
 				return true;
-			}			
 		}
 		
-		if ((y_arr[0] == y_arr[1]) && (y_arr[1] == y_arr[2])) {
-			var max_y_idx = 0;
-			for (var i = 0; i < y_arr.length - 1; i++) {
-				if (y_arr[i + 1] > y_arr[i]) {
-					max_y_idx = i + 1;
+		var first_y = y_arr[0];
+		var same_y_qty = 1;
+		var diff_y_idx = -1;
+		for (var i = 1; i < y_arr.length; i++) {
+			if (y_arr[i] == first_y) {
+				same_y_qty++;
+			} else {
+				diff_y_idx = i;
+			}
+		}
+		if (same_y_qty == 3 && diff_y_idx != -1) {
+			var greatest = true;
+			for (var i = 0; i < x_arr.length; i++) {
+				if (i != diff_y_idx && x_arr[i] > x_arr[diff_y_idx]) {
+					greatest = false;
 				}
-			}			
-			
-			if ((Math.abs(y_arr[max_y_idx] - y_arr[1]) == 1) && (x_arr[max_y_idx] == x_arr[1])) {
-				return true;
-			}				
+			}	
+			var smallest = true;
+			for (var i = 0; i < x_arr.length; i++) {
+				if (i != diff_y_idx && x_arr[i] < x_arr[diff_y_idx]) {
+					smallest = false;
+				}
+			}
+			if (!greatest && !smallest)
+				return true;			
 		}
 		
 		return false;	
