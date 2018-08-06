@@ -349,13 +349,34 @@ cc.Class({
 	},
 	
 	isZ(x_arr, y_arr) {
-		var non_repeated_x_arr = new Array();
+		var x1 = -1;
+		var x1_num = -1;
+		var x2 = -1;
+		var x2_num = -1;
 		for (var i = 0; i < x_arr.length; i++) {
-			if (!non_repeated_x_arr.includes(x_arr[i])) {
-				non_repeated_x_arr.push(x_arr[i]);
-			}				
-		}
-		if (non_repeated_x_arr.length == 2) {
+			if (x1 == -1) {
+				x1 = x_arr[i];
+				x1_num = 1;
+				continue;
+			} else {
+				if (x_arr[i] == x1) {
+					x1_num++;
+					continue;
+				}
+			}
+			
+			if (x2 == -1) {
+				x2 = x_arr[i];
+				x2_num = 1;
+				continue;
+			} else {
+				if (x_arr[i] == x2) {
+					x2_num++;
+					continue;
+				}
+			}			
+		}		
+		if (x1_num == 2 && x2_num == 2) {
 			var min_y = 19; // 之后用变量替代
 			var max_y = 0;
 			for (var i = 0; i < y_arr.length; i++) {
@@ -370,13 +391,34 @@ cc.Class({
 				return true;
 		}
 		
-		var non_repeated_y_arr = new Array();
+		var y1 = -1;
+		var y1_num = -1;
+		var y2 = -1;
+		var y2_num = -1;
 		for (var i = 0; i < y_arr.length; i++) {
-			if (!non_repeated_y_arr.includes(y_arr[i])) {
-				non_repeated_y_arr.push(y_arr[i]);
+			if (y1 == -1) {
+				y1 = y_arr[i];
+				y1_num = 1;
+				continue;
+			} else {
+				if (y_arr[i] == y1) {
+					y1_num++;
+					continue;
+				}
 			}
+			
+			if (y2 == -1) {
+				y2 = y_arr[i];
+				y2_num = 1;
+				continue;
+			} else {
+				if (y_arr[i] == y2) {
+					y2_num++;
+					continue;
+				}
+			}			
 		}
-		if (non_repeated_y_arr.length == 2) {
+		if (y1_num == 2 && y2_num == 2) {
 			var min_x = 14; // 之后用变量替代
 			var max_x = 0;
 			for (var i = 0; i < x_arr.length; i++) {
