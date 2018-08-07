@@ -437,14 +437,22 @@ cc.Class({
 	},
 	
 	isL(x_arr, y_arr) {
-		var first_x = x_arr[0];
 		var same_x_qty = 1;
 		var diff_x_idx = -1;
-		for (var i = 1; i < x_arr.length; i++) {
-			if (x_arr[i] == first_x) {
-				same_x_qty++;
+		for (var j = 0; j < x_arr.length; j++) {
+			for (var i = 0; i < x_arr.length; i++) {
+				if (i != j) {
+					if (x_arr[i] == x_arr[j]) {
+						same_x_qty++;
+					} else {
+						diff_x_idx = i;
+					}
+				}
+			}
+			if (same_x_qty == 3) {
+				break;
 			} else {
-				diff_x_idx = i;
+				same_x_qty = 1;
 			}
 		}
 		if (same_x_qty == 3 && diff_x_idx != -1) {
@@ -469,14 +477,22 @@ cc.Class({
 			}			
 		}
 		
-		var first_y = y_arr[0];
 		var same_y_qty = 1;
 		var diff_y_idx = -1;
-		for (var i = 1; i < y_arr.length; i++) {
-			if (y_arr[i] == first_y) {
-				same_y_qty++;
+		for (var j = 0; j < y_arr.length; j++) {
+			for (var i = 0; i < y_arr.length; i++) {
+				if (i != j) {
+					if (y_arr[i] == y_arr[j]) {
+						same_y_qty++;
+					} else {
+						diff_y_idx = i;
+					}
+				}
+			}
+			if (same_y_qty == 3) {
+				break;
 			} else {
-				diff_y_idx = i;
+				same_y_qty = 1;
 			}
 		}
 		if (same_y_qty == 3 && diff_y_idx != -1) {
@@ -505,14 +521,22 @@ cc.Class({
 	},
 	
 	isT(x_arr, y_arr) {
-		var first_x = x_arr[0];
 		var same_x_qty = 1;
 		var diff_x_idx = -1;
-		for (var i = 1; i < x_arr.length; i++) {
-			if (x_arr[i] == first_x) {
-				same_x_qty++;
+		for (var j = 0; j < x_arr.length; j++) {
+			for (var i = 0; i < x_arr.length; i++) {
+				if (i != j) {
+					if (x_arr[i] == x_arr[j]) {
+						same_x_qty++;
+					} else {
+						diff_x_idx = i;
+					}
+				}
+			}
+			if (same_x_qty == 3) {
+				break;
 			} else {
-				diff_x_idx = i;
+				same_x_qty = 1;
 			}
 		}
 		if (same_x_qty == 3 && diff_x_idx != -1) {
@@ -532,14 +556,22 @@ cc.Class({
 				return true;
 		}
 		
-		var first_y = y_arr[0];
 		var same_y_qty = 1;
 		var diff_y_idx = -1;
-		for (var i = 1; i < y_arr.length; i++) {
-			if (y_arr[i] == first_y) {
-				same_y_qty++;
+		for (var j = 0; j < y_arr.length; j++) {
+			for (var i = 0; i < y_arr.length; i++) {
+				if (i != j) {
+					if (y_arr[i] == y_arr[j]) {
+						same_y_qty++;
+					} else {
+						diff_y_idx = i;
+					}
+				}
+			}
+			if (same_y_qty == 3) {
+				break;
 			} else {
-				diff_y_idx = i;
+				same_y_qty = 1;
 			}
 		}
 		if (same_y_qty == 3 && diff_y_idx != -1) {
