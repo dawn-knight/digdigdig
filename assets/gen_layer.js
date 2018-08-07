@@ -37,14 +37,40 @@ cc.Class({
 		},
 		occupationMapoccupationMap: {
 			default: null
-		}
+		},
+		inspected_times_limit: 100,
+		max_col_num: 10,
+		max_row_num: 10
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
 		// this.randomGenNodes(this);
-		this.genLayerWithFourBlocksShape(this);
+		
+		var width = this.node.width;
+		var height = this.node.height;
+		this.max_col_num = parseInt((width / 50));
+		this.max_row_num = parseInt((height / 50));
+		cc.log('max_col_num: ' + this.max_col_num);
+		cc.log('max_row_num: ' + this.max_row_num);
+		
+		this.occupationMap = new Object();
+		this.occupationMap.totalInspectedTimes = 0;
+		this.occupationMap.map = null;
+
+		this.occupationMap.map = new Array(this.max_row_num);
+		for (var i = 0; i < this.occupationMap.map.length; i++) {
+			var detail = new Array(this.max_col_num);
+			for(var j = 0; j < detail.length; j++) {
+				detail[j] = {occupied:false, inspected:0};
+			}
+			this.occupationMap.map[i] = detail;
+		}
+
+		this.inspected_times_limit = this.max_col_num * this.max_row_num;
+		
+		while(this.genLayerWithFourBlocksShape(this));
 	},
 
     start () {
@@ -105,62 +131,23 @@ cc.Class({
 		}		
 	},
 	
-	genLayerWithFourBlocksShape(obj) {		
-		var width = obj.node.width;
-		var height = obj.node.height;
-		var max_col_num = parseInt((width / 50));
-		var max_row_num = parseInt((height / 50));
-		cc.log('max_col_num: ' + max_col_num);
-		cc.log('max_row_num: ' + max_row_num);
-		
-		this.occupationMap = new Object();
-		this.occupationMap.totalInspectedTimes = 0;
-		this.occupationMap.map = null;
-		cc.log(this.occupationMap);
-		
-		this.occupationMap.map = new Array(max_row_num);
-		for (var i = 0; i < this.occupationMap.map.length; i++) {
-			var detail = new Array(max_col_num);
-			for(var j = 0; j < detail.length; j++) {
-				detail[j] = {occupied:false, inspected:0};
-			}
-			this.occupationMap.map[i] = detail;
-		}
-		var inspected_times_limit = max_col_num * max_row_num;
-		
-		var first_pos_idx_vec = {x:0, y:0}
-		first_pos_idx_vec.x = Math.floor(Math.random() * max_col_num);
-		first_pos_idx_vec.y = Math.floor(Math.random() * max_row_num);
-		// cc.log(first_pos_idx_vec);
-		cc.log('[' + first_pos_idx_vec.y + '][' + first_pos_idx_vec.x + '] -> ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied + ', ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected);
-		// 不管最终是否使用该坐标点，标记该坐标点为已检视，总检视次数加1
-		if (this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected == 0) {
-			this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected = 1;
-			this.occupationMap.totalInspectedTimes++;
-			cc.log('totalInspectedTimes: ' + this.occupationMap.totalInspectedTimes);
-		}		
-		var occupied = this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied;
-		while (occupied && this.occupationMap.totalInspectedTimes < inspected_times_limit) {			
-			first_pos_idx_vec.x = Math.floor(Math.random() * max_col_num);
-			first_pos_idx_vec.y = Math.floor(Math.random() * max_row_num);
-			cc.log(first_pos_idx_vec);
-			cc.log('[' + first_pos_idx_vec.y + '][' + first_pos_idx_vec.x + '] -> ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied + ', ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected);
-			// 不管最终是否使用该坐标点，标记该坐标点为已检视，总检视次数加1
-			if (this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected == 0) {
-				this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected = 1;
-				this.occupationMap.totalInspectedTimes++;
-				cc.log('totalInspectedTimes: ' + this.occupationMap.totalInspectedTimes);
-			}			
-			occupied = this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied;
-		}
-		
+	genLayerWithFourBlocksShape(obj) {
+		var first_pos_idx_vec = this.getFirstPosIdxVec();
+		if (first_pos_idx_vec.x == -1 || first_pos_idx_vec.y == -1)
+			return false;
 		var pos_idx_vec_arr = new Array();
 		pos_idx_vec_arr.push(first_pos_idx_vec);
 		var second_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
+		if (second_pos_idx_vec.x == -1 || second_pos_idx_vec.y == -1)
+			return false;
 		pos_idx_vec_arr.push(second_pos_idx_vec);
 		var third_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
+		if (third_pos_idx_vec.x == -1 || third_pos_idx_vec.y == -1)
+			return false;		
 		pos_idx_vec_arr.push(third_pos_idx_vec);
 		var fourth_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
+		if (fourth_pos_idx_vec.x == -1 || fourth_pos_idx_vec.y == -1)
+			return false;				
 		pos_idx_vec_arr.push(fourth_pos_idx_vec);
 		
 		cc.log(pos_idx_vec_arr);
@@ -175,8 +162,29 @@ cc.Class({
 			node.x = pos_idx_vec_arr[i].x * 50;
 			node.y = pos_idx_vec_arr[i].y * 50;
 			node.parent = obj.node;
-			// cc.log(node);
+			this.occupationMap.map[pos_idx_vec_arr[i].y][pos_idx_vec_arr[i].x].occupied = true;
 		}
+		return true;
+	},
+	
+	getFirstPosIdxVec() {
+		var first_pos_idx_vec = {x:-1, y:-1};
+		var occupied = true;
+		while (occupied && this.occupationMap.totalInspectedTimes < this.inspected_times_limit) {			
+			first_pos_idx_vec.x = Math.floor(Math.random() * this.max_col_num);
+			first_pos_idx_vec.y = Math.floor(Math.random() * this.max_row_num);
+			cc.log('[' + first_pos_idx_vec.y + '][' + first_pos_idx_vec.x + '] -> ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied + ', ' + this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected);
+			// 不管最终是否使用该坐标点，标记该坐标点为已检视，总检视次数加1
+			if (this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected == 0) {
+				this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].inspected = 1;
+				this.occupationMap.totalInspectedTimes++;
+				cc.log('totalInspectedTimes: ' + this.occupationMap.totalInspectedTimes);
+			}			
+			occupied = this.occupationMap.map[first_pos_idx_vec.y][first_pos_idx_vec.x].occupied;
+		}
+		if (this.occupationMap.totalInspectedTimes == this.inspected_times_limit)
+			first_pos_idx_vec = {x:-1, y:-1};
+		return first_pos_idx_vec;
 	},
 	
 	/*
