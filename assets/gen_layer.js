@@ -135,34 +135,35 @@ cc.Class({
 		var first_pos_idx_vec = this.getFirstPosIdxVec();
 		if (first_pos_idx_vec.x == -1 || first_pos_idx_vec.y == -1)
 			return false;
+		
 		var pos_idx_vec_arr = new Array();
 		pos_idx_vec_arr.push(first_pos_idx_vec);
 		var second_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
-		if (second_pos_idx_vec.x == -1 || second_pos_idx_vec.y == -1)
-			return false;
-		pos_idx_vec_arr.push(second_pos_idx_vec);
-		var third_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
-		if (third_pos_idx_vec.x == -1 || third_pos_idx_vec.y == -1)
-			return false;		
-		pos_idx_vec_arr.push(third_pos_idx_vec);
-		var fourth_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
-		if (fourth_pos_idx_vec.x == -1 || fourth_pos_idx_vec.y == -1)
-			return false;				
-		pos_idx_vec_arr.push(fourth_pos_idx_vec);
-		
-		cc.log(pos_idx_vec_arr);
-		
-		var color = this.getColor(pos_idx_vec_arr);
-		
-		for (var i = 0; i < pos_idx_vec_arr.length; i++) {
-			var node = new cc.Node(i);
-			var texture = node.addComponent(cc.Sprite);
-			texture.spriteFrame = color;
-			node.setAnchorPoint(0, 0);
-			node.x = pos_idx_vec_arr[i].x * 50;
-			node.y = pos_idx_vec_arr[i].y * 50;
-			node.parent = obj.node;
-			this.occupationMap.map[pos_idx_vec_arr[i].y][pos_idx_vec_arr[i].x].occupied = true;
+		if (second_pos_idx_vec.x != -1 && second_pos_idx_vec.y != -1) {
+			pos_idx_vec_arr.push(second_pos_idx_vec);
+			var third_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
+			if (third_pos_idx_vec.x != -1 && third_pos_idx_vec.y != -1) {
+				pos_idx_vec_arr.push(third_pos_idx_vec);
+				var fourth_pos_idx_vec = this.getNextPosIdxVec(pos_idx_vec_arr);
+				if (fourth_pos_idx_vec.x != -1 && fourth_pos_idx_vec.y != -1) {
+					pos_idx_vec_arr.push(fourth_pos_idx_vec);
+				
+					cc.log(pos_idx_vec_arr);
+					
+					var color = this.getColor(pos_idx_vec_arr);
+					
+					for (var i = 0; i < pos_idx_vec_arr.length; i++) {
+						var node = new cc.Node(i);
+						var texture = node.addComponent(cc.Sprite);
+						texture.spriteFrame = color;
+						node.setAnchorPoint(0, 0);
+						node.x = pos_idx_vec_arr[i].x * 50;
+						node.y = pos_idx_vec_arr[i].y * 50;
+						node.parent = obj.node;
+						this.occupationMap.map[pos_idx_vec_arr[i].y][pos_idx_vec_arr[i].x].occupied = true;
+					}
+				}
+			}
 		}
 		return true;
 	},
