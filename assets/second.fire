@@ -281,6 +281,9 @@
     "purple": {
       "__uuid__": "e5279ca2-b913-433f-9546-cf552eba7aac"
     },
-    "occupationMapoccupationMap": null
+    "occupationMapoccupationMap": null,
+    "inspected_times_limit": 100,
+    "max_col_num": 10,
+    "max_row_num": 10
   }
 ]
