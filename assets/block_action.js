@@ -12,7 +12,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-		mouseDownTime: 0
+		mouseDownTime: 0,
+		rotatedByYAxis: true
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -22,10 +23,16 @@ cc.Class({
 			var today = new Date();
 			var timeInterval = today.getTime() - this.mouseDownTime;
 			
-			if (timeInterval > 500) {
-				this.node.rotationX += 180;
+			if (timeInterval > 350) {
+				if (this.rotatedByYAxis) {
+					this.node.rotationY += 180;
+				} else {
+					this.node.rotationX += 180;
+				}
 			} else {
-				this.node.rotation += 90;
+				this.node.rotationX += 90;
+				this.node.rotationY += 90;
+				this.rotatedByYAxis = !this.rotatedByYAxis;
 			}
 			
 			this.mouseDownTime = 0;

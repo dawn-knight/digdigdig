@@ -332,8 +332,8 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 0.5,
+      "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -390,7 +390,8 @@
       "__id__": 8
     },
     "_enabled": true,
-    "mouseDownTime": 0
+    "mouseDownTime": 0,
+    "rotatedByYAxis": true
   },
   {
     "__type__": "cc.Node",
@@ -423,8 +424,8 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 0.5,
+      "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -481,7 +482,8 @@
       "__id__": 11
     },
     "_enabled": true,
-    "mouseDownTime": 0
+    "mouseDownTime": 0,
+    "rotatedByYAxis": true
   },
   {
     "__type__": "cc.Node",
@@ -514,8 +516,8 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 0.5,
+      "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -572,7 +574,8 @@
       "__id__": 14
     },
     "_enabled": true,
-    "mouseDownTime": 0
+    "mouseDownTime": 0,
+    "rotatedByYAxis": true
   },
   {
     "__type__": "cc.Node",
@@ -605,8 +608,8 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 0.5,
+      "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -663,7 +666,8 @@
       "__id__": 17
     },
     "_enabled": true,
-    "mouseDownTime": 0
+    "mouseDownTime": 0,
+    "rotatedByYAxis": true
   },
   {
     "__type__": "cc.Node",
@@ -696,8 +700,8 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 0.5,
+      "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -754,6 +758,7 @@
       "__id__": 20
     },
     "_enabled": true,
-    "mouseDownTime": 0
+    "mouseDownTime": 0,
+    "rotatedByYAxis": true
   }
 ]
