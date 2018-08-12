@@ -391,7 +391,10 @@
     },
     "_enabled": true,
     "mouseDownTime": 0,
-    "rotatedByYAxis": true
+    "rotatedByYAxis": true,
+    "mouseDown": false,
+    "moved": false,
+    "newBlksGen": false
   },
   {
     "__type__": "cc.Node",
@@ -483,7 +486,10 @@
     },
     "_enabled": true,
     "mouseDownTime": 0,
-    "rotatedByYAxis": true
+    "rotatedByYAxis": true,
+    "mouseDown": false,
+    "moved": false,
+    "newBlksGen": false
   },
   {
     "__type__": "cc.Node",
@@ -575,7 +581,10 @@
     },
     "_enabled": true,
     "mouseDownTime": 0,
-    "rotatedByYAxis": true
+    "rotatedByYAxis": true,
+    "mouseDown": false,
+    "moved": false,
+    "newBlksGen": false
   },
   {
     "__type__": "cc.Node",
@@ -667,7 +676,10 @@
     },
     "_enabled": true,
     "mouseDownTime": 0,
-    "rotatedByYAxis": true
+    "rotatedByYAxis": true,
+    "mouseDown": false,
+    "moved": false,
+    "newBlksGen": false
   },
   {
     "__type__": "cc.Node",
@@ -759,6 +771,9 @@
     },
     "_enabled": true,
     "mouseDownTime": 0,
-    "rotatedByYAxis": true
+    "rotatedByYAxis": true,
+    "mouseDown": false,
+    "moved": false,
+    "newBlksGen": false
   }
 ]
