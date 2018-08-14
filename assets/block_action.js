@@ -1,4 +1,5 @@
-var newBlkAction = new (require('block_action2'));
+var newBlkActionInstance = new (require('block_action2'));
+var newBlkAction = require('block_action2');
 
 cc.Class({
     extends: cc.Component,
@@ -76,8 +77,7 @@ cc.Class({
 		new_one.rotationY = this.node.rotationY;
 		new_one.addComponent(cc.Sprite);
 		new_one._components[0]._spriteFrame = this.node._components[0]._spriteFrame;
+		new_one.addComponent(newBlkAction);
 		new_one.parent = this.node.parent;
-		new_one.setAnchorPoint(0, 0);
-		cc.log(newBlkAction);
 	},
 });

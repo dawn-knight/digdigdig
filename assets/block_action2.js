@@ -1,13 +1,13 @@
-var newBlkAction = cc.Class ({
+cc.Class ({
     extends: cc.Component,
 	
-	ctor: function newBlkAction () {},
-
+	ctor: function () {},
+	
     properties: {
 		mouseDownTime: 0,
 		rotatedByYAxis: true,
 		mouseDown: false,
-		moved: false,	
+		moved: false,
     },
 
     // LIFE-CYCLE CALLBACKS:
