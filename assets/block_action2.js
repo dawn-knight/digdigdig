@@ -20,7 +20,7 @@ cc.Class ({
 		this.node.on('mouseup', function(event) {
 			this.mouseDown = false;
 			
-			if (!this.moved) {
+			if (!this.moved) {				
 				var today = new Date();
 				var timeInterval = today.getTime() - this.mouseDownTime;
 				
@@ -37,19 +37,19 @@ cc.Class ({
 				}
 			} else {
 				this.moved = false;
+				cc.log(this.node.parent.children[1]._components[0].occupationMap);
 			}
 			
 			this.mouseDownTime = 0;
 		}, this);
 		
-		this.node.on('mousedown', function(event) {
+		this.node.on('mousedown', function(event) {				
 			var today = new Date();
 			this.mouseDownTime = today.getTime();
 			this.mouseDown = true;
 		}, this);		
 
 		this.node.on('mousemove', function(event) {
-			cc.log('new mousemove: ' + this.mouseDown);
 			if (this.mouseDown) {
 				this.node.x = event.getLocationX();
 				this.node.y = event.getLocationY();

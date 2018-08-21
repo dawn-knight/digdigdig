@@ -35,12 +35,13 @@ cc.Class({
 			type: cc.SpriteFrame,
 			shape: 'o'
 		},
-		occupationMapoccupationMap: {
+		occupationMap: {
 			default: null
 		},
 		inspected_times_limit: 100,
 		max_col_num: 10,
-		max_row_num: 10
+		max_row_num: 10,
+		blockNum: 0
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -71,6 +72,8 @@ cc.Class({
 		this.inspected_times_limit = this.max_col_num * this.max_row_num;
 		
 		while(this.genLayerWithFourBlocksShape(this));
+
+		this.node.parent.children[7]._components[0].string = this.blockNum;		
 	},
 
     start () {
@@ -162,6 +165,7 @@ cc.Class({
 						node.parent = obj.node;
 						this.occupationMap.map[pos_idx_vec_arr[i].y][pos_idx_vec_arr[i].x].occupied = true;
 					}
+					this.blockNum++;
 				}
 			}
 		}
