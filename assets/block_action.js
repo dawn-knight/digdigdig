@@ -5,8 +5,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-		// mouseDownTime: 0,
-		// rotatedByYAxis: true,
+		mouseDownTime: 0,
+		rotatedByYAxis: true,
 		mouseDown: false,
 		// moved: false,
 		newBlksGen: false	
@@ -22,30 +22,30 @@ cc.Class({
 			this.mouseDown = false;
 			
 			// if (!this.moved) {
-				// var today = new Date();
-				// var timeInterval = today.getTime() - this.mouseDownTime;
+				var today = new Date();
+				var timeInterval = today.getTime() - this.mouseDownTime;
 				
-				// if (timeInterval > 350) {
-					// if (this.rotatedByYAxis) {
-						// this.node.rotationY += 180;
-					// } else {
-						// this.node.rotationX += 180;
-					// }
-				// } else {
-					// this.node.rotationX += 90;
-					// this.node.rotationY += 90;
-					// this.rotatedByYAxis = !this.rotatedByYAxis;
-				// }
+				if (timeInterval > 350) {
+					if (this.rotatedByYAxis) {
+						this.node.rotationY += 180;
+					} else {
+						this.node.rotationX += 180;
+					}
+				} else {
+					this.node.rotationX += 90;
+					this.node.rotationY += 90;
+					this.rotatedByYAxis = !this.rotatedByYAxis;
+				}
 			// } else {
 				// this.moved = false;
 			// }
 			
-			// this.mouseDownTime = 0;
+			this.mouseDownTime = 0;
 		}, this);
 		
 		this.node.on('mousedown', function(event) {
-			// var today = new Date();
-			// this.mouseDownTime = today.getTime();
+			var today = new Date();
+			this.mouseDownTime = today.getTime();
 			this.mouseDown = true;
 		}, this);
 
@@ -71,7 +71,7 @@ cc.Class({
 	
 	genNewBlks () {
 		var new_one = new cc.Node(this.node.name + '_new');
-		new_one.x = this.node.x + 10;
+		new_one.x = this.node.x - 10;
 		new_one.y = this.node.y - 10;
 		new_one.rotationX = this.node.rotationX;
 		new_one.rotationY = this.node.rotationY;

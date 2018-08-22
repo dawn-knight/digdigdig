@@ -299,10 +299,11 @@
     "purple": {
       "__uuid__": "e5279ca2-b913-433f-9546-cf552eba7aac"
     },
-    "occupationMapoccupationMap": null,
+    "occupationMap": null,
     "inspected_times_limit": 100,
     "max_col_num": 10,
-    "max_row_num": 10
+    "max_row_num": 10,
+    "blockNum": 0
   },
   {
     "__type__": "cc.Node",
@@ -393,6 +394,8 @@
       "__id__": 8
     },
     "_enabled": true,
+    "mouseDownTime": 0,
+    "rotatedByYAxis": true,
     "mouseDown": false,
     "newBlksGen": false
   },
@@ -485,6 +488,8 @@
       "__id__": 11
     },
     "_enabled": true,
+    "mouseDownTime": 0,
+    "rotatedByYAxis": true,
     "mouseDown": false,
     "newBlksGen": false
   },
@@ -577,6 +582,8 @@
       "__id__": 14
     },
     "_enabled": true,
+    "mouseDownTime": 0,
+    "rotatedByYAxis": true,
     "mouseDown": false,
     "newBlksGen": false
   },
@@ -669,6 +676,8 @@
       "__id__": 17
     },
     "_enabled": true,
+    "mouseDownTime": 0,
+    "rotatedByYAxis": true,
     "mouseDown": false,
     "newBlksGen": false
   },
@@ -761,6 +770,8 @@
       "__id__": 20
     },
     "_enabled": true,
+    "mouseDownTime": 0,
+    "rotatedByYAxis": true,
     "mouseDown": false,
     "newBlksGen": false
   },
