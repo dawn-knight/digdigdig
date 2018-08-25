@@ -9,7 +9,11 @@ cc.Class({
 		rotatedByYAxis: true,
 		mouseDown: false,
 		// moved: false,
-		newBlksGen: false	
+		newBlksGen: false,
+		texture: {
+			default: null,
+			type: cc.SpriteFrame
+		}		
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -71,6 +75,15 @@ cc.Class({
 	
 	genNewBlks () {
 		var new_one = new cc.Node(this.node.name + '_new');
+		new_one.width = this.node.width;
+		new_one.height = this.node.height;
+		for(var i = 0; i < 4; i++) {
+			var new_sub_node = new cc.Node(this.node.name + '_new_sub' + i);
+			new_sub_node.setAnchorPoint(0, 0);
+			new_sub_node.parent = new_one;
+			var texture = new_sub_node.addComopnent(cc.Sprite);
+			texture = this.texture;
+		}
 		new_one.x = this.node.x - 10;
 		new_one.y = this.node.y - 10;
 		new_one.rotationX = this.node.rotationX;
