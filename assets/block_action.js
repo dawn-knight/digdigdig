@@ -79,5 +79,6 @@ cc.Class({
 		new_one._components[0]._spriteFrame = this.node._components[0]._spriteFrame;
 		new_one.addComponent(newBlkAction);
 		new_one.parent = this.node.parent;
+		
 	},
 });
