@@ -120,23 +120,23 @@ cc.Class({
 			new_sub_node_arr[1].x = new_sub_node_arr[0].x;
 			new_sub_node_arr[1].y = new_sub_node_arr[0].y - 50;
 			
-			new_sub_node_arr[2].x = new_sub_node_arr[0].x;
-			new_sub_node_arr[2].y = new_sub_node_arr[1].y - 50;
+			new_sub_node_arr[2].x = new_sub_node_arr[0].x + 50;
+			new_sub_node_arr[2].y = new_sub_node_arr[0].y;
 			
-			new_sub_node_arr[3].x = new_sub_node_arr[2].x + 50;
-			new_sub_node_arr[3].y = new_sub_node_arr[2].y;
+			new_sub_node_arr[3].x = new_sub_node_arr[0].x + 50;
+			new_sub_node_arr[3].y = new_sub_node_arr[0].y - 50;
 		}
 
 		if (new_node.name == 'redI_new') {
 			// 50是单个block的宽度，暂时写死
-			new_sub_node_arr[0].x = new_node.width / 2 - 50;
-			new_sub_node_arr[0].y = new_node.height / 2 - 50;
+			new_sub_node_arr[0].x = 0;
+			new_sub_node_arr[0].y = new_node.height / 2 - 25;
 			
-			new_sub_node_arr[1].x = new_sub_node_arr[0].x;
-			new_sub_node_arr[1].y = new_sub_node_arr[0].y - 50;
+			new_sub_node_arr[1].x = new_sub_node_arr[0].x + 50;
+			new_sub_node_arr[1].y = new_sub_node_arr[0].y;
 			
-			new_sub_node_arr[2].x = new_sub_node_arr[0].x;
-			new_sub_node_arr[2].y = new_sub_node_arr[1].y - 50;
+			new_sub_node_arr[2].x = new_sub_node_arr[1].x + 50;
+			new_sub_node_arr[2].y = new_sub_node_arr[1].y;
 			
 			new_sub_node_arr[3].x = new_sub_node_arr[2].x + 50;
 			new_sub_node_arr[3].y = new_sub_node_arr[2].y;
@@ -144,13 +144,13 @@ cc.Class({
 
 		if (new_node.name == 'yellowZ_new') {
 			// 50是单个block的宽度，暂时写死
-			new_sub_node_arr[0].x = new_node.width / 2 - 50;
+			new_sub_node_arr[0].x = new_node.width / 2 - 75;
 			new_sub_node_arr[0].y = new_node.height / 2 - 50;
 			
-			new_sub_node_arr[1].x = new_sub_node_arr[0].x;
-			new_sub_node_arr[1].y = new_sub_node_arr[0].y - 50;
+			new_sub_node_arr[1].x = new_sub_node_arr[0].x + 50;
+			new_sub_node_arr[1].y = new_sub_node_arr[0].y;
 			
-			new_sub_node_arr[2].x = new_sub_node_arr[0].x;
+			new_sub_node_arr[2].x = new_sub_node_arr[1].x;
 			new_sub_node_arr[2].y = new_sub_node_arr[1].y - 50;
 			
 			new_sub_node_arr[3].x = new_sub_node_arr[2].x + 50;
@@ -159,17 +159,17 @@ cc.Class({
 
 		if (new_node.name == 'greenT_new') {
 			// 50是单个block的宽度，暂时写死
-			new_sub_node_arr[0].x = new_node.width / 2 - 50;
-			new_sub_node_arr[0].y = new_node.height / 2 - 50;
+			new_sub_node_arr[0].x = new_node.width / 2 - 75;
+			new_sub_node_arr[0].y = new_node.height / 2 - 100;
 			
-			new_sub_node_arr[1].x = new_sub_node_arr[0].x;
-			new_sub_node_arr[1].y = new_sub_node_arr[0].y - 50;
+			new_sub_node_arr[1].x = new_sub_node_arr[0].x + 50;
+			new_sub_node_arr[1].y = new_sub_node_arr[0].y;
 			
-			new_sub_node_arr[2].x = new_sub_node_arr[0].x;
-			new_sub_node_arr[2].y = new_sub_node_arr[1].y - 50;
+			new_sub_node_arr[2].x = new_sub_node_arr[1].x;
+			new_sub_node_arr[2].y = new_sub_node_arr[1].y + 50;
 			
-			new_sub_node_arr[3].x = new_sub_node_arr[2].x + 50;
-			new_sub_node_arr[3].y = new_sub_node_arr[2].y;
+			new_sub_node_arr[3].x = new_sub_node_arr[0].x + 100;
+			new_sub_node_arr[3].y = new_sub_node_arr[0].y;
 		}		
 	},
 });
