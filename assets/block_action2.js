@@ -134,6 +134,32 @@ cc.Class ({
 		
 		if (this.node.name == 'greenT_new') {
 			// 50是单个block的宽度，暂时写死
+			// 没有旋转或旋转360°N次，4N * 90
+			// 旋转90°N次，(4N + 1) * 90
+			// 旋转180°N次，(4N + 2) * 90
+			// 旋转270°N次，(4N + 3) * 90
+			var times = this.node.rotationX / 90;
+			if ((times % 4) == 0) {
+				cc.log('first block[' + (this.node.x - 75) + ', ' + (this.node.y - 50) + ']');
+				cc.log('second block[' + (this.node.x - 25)+ ', ' + (this.node.y - 50) + ']');
+				cc.log('third block[' + (this.node.x - 25) + ', ' + (this.node.y) + ']');
+				cc.log('fourth block[' + (this.node.x + 25) + ', ' + (this.node.y - 50) + ']');						
+			} else if ((times % 4) == 1) {
+				cc.log('first block[' + (this.node.x - 50) + ', ' + (this.node.y + 25) + ']');
+				cc.log('second block[' + (this.node.x - 50)+ ', ' + (this.node.y - 25) + ']');
+				cc.log('third block[' + (this.node.x) + ', ' + (this.node.y - 25) + ']');
+				cc.log('fourth block[' + (this.node.x - 50) + ', ' + (this.node.y - 75) + ']');						
+			} else if ((times % 4) == 2) {
+				cc.log('first block[' + (this.node.x - 75) + ', ' + (this.node.y) + ']');
+				cc.log('second block[' + (this.node.x - 25)+ ', ' + (this.node.y) + ']');
+				cc.log('third block[' + (this.node.x - 25) + ', ' + (this.node.y - 50) + ']');
+				cc.log('fourth block[' + (this.node.x + 25) + ', ' + (this.node.y) + ']');						
+			} else if ((times % 4) == 3) {
+				cc.log('first block[' + (this.node.x) + ', ' + (this.node.y + 25) + ']');
+				cc.log('second block[' + (this.node.x)+ ', ' + (this.node.y - 25) + ']');
+				cc.log('third block[' + (this.node.x - 50) + ', ' + (this.node.y - 25) + ']');
+				cc.log('fourth block[' + (this.node.x) + ', ' + (this.node.y - 75) + ']');						
+			}
 			return;
 		}
 	}

@@ -30,15 +30,20 @@ cc.Class({
 				var timeInterval = today.getTime() - this.mouseDownTime;
 				
 				if (timeInterval > 350) {
-					if (this.rotatedByYAxis) {
-						this.node.rotationY += 180;
-					} else {
-						this.node.rotationX += 180;
+					// 只有这两种图形需要翻转，其他轴对称的图形无翻转必要
+					if (this.node.name == 'orangeL' || this.node.name == 'yellowZ') {
+						if (this.rotatedByYAxis) {
+							this.node.rotationY += 180;
+						} else {
+							this.node.rotationX += 180;
+						}
 					}
 				} else {
 					this.node.rotationX += 90;
 					this.node.rotationY += 90;
-					this.rotatedByYAxis = !this.rotatedByYAxis;
+					if (this.node.name == 'orangeL' || this.node.name == 'yellowZ') {
+						this.rotatedByYAxis = !this.rotatedByYAxis;
+					}
 				}
 			// } else {
 				// this.moved = false;
