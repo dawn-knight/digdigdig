@@ -162,5 +162,59 @@ cc.Class ({
 			}
 			return;
 		}
+		
+		if (this.node.name == 'orangeL_new') {
+			// 50是单个block的宽度，暂时写死
+			if (this.node.rotationX == this.node.rotationY) {
+				// 无翻转
+				var times = this.node.rotationX / 90;
+				if ((times % 4) == 0) {
+					cc.log('first block[' + (this.node.x - 50) + ', ' + (this.node.y + 25) + ']');
+					cc.log('second block[' + (this.node.x - 50)+ ', ' + (this.node.y - 25) + ']');
+					cc.log('third block[' + (this.node.x - 50) + ', ' + (this.node.y - 75) + ']');
+					cc.log('fourth block[' + (this.node.x) + ', ' + (this.node.y - 75) + ']');						
+				} else if ((times % 4) == 1) {
+					cc.log('first block[' + (this.node.x - 75) + ', ' + (this.node.y - 50) + ']');
+					cc.log('second block[' + (this.node.x - 75)+ ', ' + (this.node.y) + ']');
+					cc.log('third block[' + (this.node.x - 25) + ', ' + (this.node.y) + ']');
+					cc.log('fourth block[' + (this.node.x + 25) + ', ' + (this.node.y) + ']');					
+				} else if ((times % 4) == 2) {
+					cc.log('first block[' + (this.node.x - 50) + ', ' + (this.node.y + 25) + ']');
+					cc.log('second block[' + (this.node.x)+ ', ' + (this.node.y + 25) + ']');
+					cc.log('third block[' + (this.node.x) + ', ' + (this.node.y - 25) + ']');
+					cc.log('fourth block[' + (this.node.x) + ', ' + (this.node.y - 75) + ']');					
+				} else if ((times % 4) == 3) {
+					cc.log('first block[' + (this.node.x - 75) + ', ' + (this.node.y - 50) + ']');
+					cc.log('second block[' + (this.node.x - 25)+ ', ' + (this.node.y - 50) + ']');
+					cc.log('third block[' + (this.node.x + 25) + ', ' + (this.node.y - 50) + ']');
+					cc.log('fourth block[' + (this.node.x + 25) + ', ' + (this.node.y) + ']');						
+				}
+			} else {
+				// 有翻转
+				var rotationDegree = (this.node.rotationX > this.node.rotationY) ? this.node.rotationY : this.node.rotationX;
+				var times = rotationDegree / 90;
+				if ((times % 4) == 0) {
+					cc.log('first block[' + (this.node.x) + ', ' + (this.node.y + 25) + ']');
+					cc.log('second block[' + (this.node.x)+ ', ' + (this.node.y - 25) + ']');
+					cc.log('third block[' + (this.node.x) + ', ' + (this.node.y - 75) + ']');
+					cc.log('fourth block[' + (this.node.x - 50) + ', ' + (this.node.y - 75) + ']');						
+				} else if ((times % 4) == 1) {
+					cc.log('first block[' + (this.node.x - 75) + ', ' + (this.node.y) + ']');
+					cc.log('second block[' + (this.node.x - 25)+ ', ' + (this.node.y) + ']');
+					cc.log('third block[' + (this.node.x + 25) + ', ' + (this.node.y) + ']');
+					cc.log('fourth block[' + (this.node.x + 25) + ', ' + (this.node.y - 50) + ']');						
+				} else if ((times % 4) == 2) {
+					cc.log('first block[' + (this.node.x) + ', ' + (this.node.y + 25) + ']');
+					cc.log('second block[' + (this.node.x - 50)+ ', ' + (this.node.y + 25) + ']');
+					cc.log('third block[' + (this.node.x - 50) + ', ' + (this.node.y - 25) + ']');
+					cc.log('fourth block[' + (this.node.x - 50) + ', ' + (this.node.y - 75) + ']');						
+				} else if ((times % 4) == 3) {
+					cc.log('first block[' + (this.node.x - 75) + ', ' + (this.node.y) + ']');
+					cc.log('second block[' + (this.node.x - 75)+ ', ' + (this.node.y - 50) + ']');
+					cc.log('third block[' + (this.node.x - 25) + ', ' + (this.node.y - 50) + ']');
+					cc.log('fourth block[' + (this.node.x + 25) + ', ' + (this.node.y - 50) + ']');					
+				}				
+			}
+		}
 	}
 });
